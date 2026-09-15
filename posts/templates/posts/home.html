@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SocialConnect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-text {
+            font-size: 14px;
+            color: #d9deea;
+        }
+
+        .nav-user {
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #26334d;
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-btn:hover {
+            background: #3a4b70;
+        }
+
+        .search-btn {
+            background: #198754;
+        }
+
+        .search-btn:hover {
+            background: #157347;
+        }
+
+        .notification-btn {
+            background: #7c3aed;
+            position: relative;
+        }
+
+        .notification-btn:hover {
+            background: #6d28d9;
+        }
+
+        .notification-badge {
+            background: #dc3545;
+            color: white;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            line-height: 19px;
+        }
+
+        .profile-btn {
+            background: #667eea;
+        }
+
+        .profile-btn:hover {
+            background: #5568d9;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 40px auto;
+        }
+
+
+        /* =========================
+           WELCOME
+        ========================= */
+
+        .welcome {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #687386;
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           CREATE POST
+        ========================= */
+
+        .create-post {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .create-post h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .create-post form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .create-post textarea {
+            width: 100%;
+            min-height: 110px;
+            resize: vertical;
+            border: 1px solid #dfe4eb;
+            border-radius: 12px;
+            padding: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .create-post textarea:focus {
+            border-color: #172033;
+        }
+
+        .publish-btn {
+            align-self: flex-end;
+            border: none;
+            background: #172033;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 22px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .publish-btn:hover {
+            background: #26334d;
+        }
+
+        .login-box {
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 8px;
+        }
+
+        .login-box p {
+            color: #687386;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           AUTH BUTTONS
+        ========================= */
+
+        .auth-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .auth-btn {
+            text-decoration: none;
+            background: #172033;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 22px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .auth-btn:hover {
+            background: #26334d;
+        }
+
+        .register-btn {
+            background: #667eea;
+        }
+
+        .register-btn:hover {
+            background: #5568d9;
+        }
+
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           POST CARD
+        ========================= */
+
+        .post-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+            transition: 0.2s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #e8edf5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+
+        /* =========================
+           USER INFO
+        ========================= */
+
+        .post-user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-details {
+            min-width: 0;
+        }
+
+        .username-link {
+            color: #172033;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.2s ease;
+        }
+
+        .username-link:hover {
+            color: #667eea;
+        }
+
+        .post-date {
+            display: block;
+            font-size: 12px;
+            color: #8992a3;
+            margin-top: 4px;
+        }
+
+
+        /* =========================
+           FOLLOW
+        ========================= */
+
+        .follow-form {
+            margin: 0;
+        }
+
+        .follow-btn {
+            border: none;
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s ease;
+        }
+
+        .follow-btn:hover {
+            background: #5568d9;
+        }
+
+        .following-btn {
+            background: #e9ecef;
+            color: #394150;
+        }
+
+        .following-btn:hover {
+            background: #dfe3e7;
+        }
+
+
+        /* =========================
+           POST CONTENT
+        ========================= */
+
+        .post-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #3d4656;
+            margin-bottom: 18px;
+            word-wrap: break-word;
+        }
+
+
+        /* =========================
+           OWNER ACTIONS
+        ========================= */
+
+        .owner-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .edit-post-btn,
+        .delete-post-btn {
+            border: none;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .edit-post-btn {
+            background: #e8edf5;
+            color: #394150;
+        }
+
+        .edit-post-btn:hover {
+            background: #dfe4eb;
+        }
+
+        .delete-post-btn {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .delete-post-btn:hover {
+            background: #f1bfc4;
+        }
+
+        .delete-form {
+            margin: 0;
+        }
+
+
+        /* =========================
+           POST ACTIONS
+        ========================= */
+
+        .post-actions {
+            border-top: 1px solid #edf0f4;
+            padding-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: none;
+            background: #f1f3f6;
+            color: #4b5565;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            background: #e5e9ef;
+        }
+
+        .like-form {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================
+           COMMENTS
+        ========================= */
+
+        .comments-section {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid #edf0f4;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comment-form input {
+            flex: 1;
+            border: 1px solid #dfe4eb;
+            border-radius: 20px;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .comment-form input:focus {
+            border-color: #172033;
+        }
+
+        .comment-form button {
+            border: none;
+            background: #172033;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .comment-form button:hover {
+            background: #26334d;
+        }
+
+        .comment {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 50%;
+            background: #e8edf5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comment-content {
+            background: #f4f6f8;
+            padding: 9px 13px;
+            border-radius: 12px;
+            flex: 1;
+        }
+
+        .comment-content strong {
+            font-size: 14px;
+        }
+
+        .comment-content p {
+            margin-top: 4px;
+            font-size: 14px;
+            color: #4b5565;
+            line-height: 1.5;
+        }
+
+        .comment-content small {
+            display: block;
+            margin-top: 5px;
+            color: #8992a3;
+            font-size: 11px;
+        }
+
+        .no-comments {
+            color: #8992a3;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .login-comment {
+            color: #8992a3;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .login-comment a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            background: white;
+            padding: 45px 25px;
+            text-align: center;
+            border-radius: 16px;
+            color: #737d8e;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+            color: #30394a;
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-text {
+                display: none;
+            }
+
+            .navbar-right {
+                gap: 5px;
+            }
+
+            .nav-user {
+                display: none;
+            }
+
+            .nav-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .notification-badge {
+                min-width: 17px;
+                height: 17px;
+                line-height: 17px;
+                font-size: 9px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .welcome {
+                padding: 24px 18px;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+
+            .post-card {
+                padding: 18px;
+            }
+
+            .comment-form {
+                flex-direction: column;
+            }
+
+            .comment-form button {
+                width: fit-content;
+            }
+
+            .publish-btn {
+                align-self: stretch;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+            }
+
+            .auth-btn {
+                width: 100%;
+            }
+
+            .post-user-info {
+                align-items: flex-start;
+            }
+
+            .follow-btn {
+                padding: 7px 12px;
+                font-size: 12px;
+            }
+
+            .owner-actions {
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+
+        <div class="navbar-right">
+
+            {% if user.is_authenticated %}
+
+                <span class="nav-user">
+                    👤 {{ user.username }}
+                </span>
+
+                <span class="nav-text">
+                    Connect • Share • Discover
+                </span>
+
+
+                <!-- SEARCH -->
+
+                <a href="{% url 'search_users' %}"
+                   class="nav-btn search-btn">
+
+                    🔎 Search
+
+                </a>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <a href="{% url 'notifications' %}"
+                   class="nav-btn notification-btn">
+
+                    🔔 Notifications
+
+                    {% if unread_notifications > 0 %}
+
+                        <span class="notification-badge">
+                            {{ unread_notifications }}
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+
+                <!-- PROFILE -->
+
+                <a href="{% url 'profile' %}"
+                   class="nav-btn profile-btn">
+
+                    Profile
+
+                </a>
+
+
+                <!-- LOGOUT -->
+
+                <a href="{% url 'logout' %}"
+                   class="nav-btn logout-btn">
+
+                    Logout
+
+                </a>
+
+            {% else %}
+
+                <span class="nav-text">
+                    Connect • Share • Discover
+                </span>
+
+                <a href="{% url 'login' %}"
+                   class="nav-btn">
+
+                    Login
+
+                </a>
+
+                <a href="{% url 'register' %}"
+                   class="nav-btn">
+
+                    Register
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome">
+
+            <h1>
+                Welcome to My Social Media Platform 🚀
+            </h1>
+
+            <p>
+                Share your thoughts and connect with others.
+            </p>
+
+        </section>
+
+
+        <!-- CREATE POST -->
+
+        {% if user.is_authenticated %}
+
+            <section class="create-post">
+
+                <h2>
+                    Create a Post 🚀
+                </h2>
+
+                <form method="POST"
+                      action="{% url 'create_post' %}">
+
+                    {% csrf_token %}
+
+                    <textarea
+                        name="content"
+                        placeholder="What's on your mind?"
+                        required></textarea>
+
+                    <button type="submit"
+                            class="publish-btn">
+
+                        Publish Post
+
+                    </button>
+
+                </form>
+
+            </section>
+
+        {% else %}
+
+            <section class="create-post login-box">
+
+                <h2>
+                    Want to share something? 🚀
+                </h2>
+
+                <p>
+                    Login or create an account to publish a post.
+                </p>
+
+                <div class="auth-buttons">
+
+                    <a href="{% url 'login' %}"
+                       class="auth-btn">
+
+                        Login
+
+                    </a>
+
+                    <a href="{% url 'register' %}"
+                       class="auth-btn register-btn">
+
+                        Create Account
+
+                    </a>
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <!-- POSTS -->
+
+        <h2 class="section-title">
+            Latest Posts
+        </h2>
+
+
+        {% for post in posts %}
+
+            <article class="post-card">
+
+
+                <!-- POST HEADER -->
+
+                <div class="post-header">
+
+                    <div class="avatar">
+                        👤
+                    </div>
+
+
+                    <div class="post-user-info">
+
+                        <div class="user-details">
+
+                            <a href="{% url 'user_profile' post.user.id %}"
+                               class="username-link">
+
+                                {{ post.user.username }}
+
+                            </a>
+
+                            <span class="post-date">
+                                Posted on {{ post.created_at }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- FOLLOW -->
+
+                        {% if user.is_authenticated %}
+
+                            {% if post.user != user %}
+
+                                <form method="POST"
+                                      action="{% url 'follow_user' post.user.id %}"
+                                      class="follow-form">
+
+                                    {% csrf_token %}
+
+                                    {% if post.user.id in following_ids %}
+
+                                        <button type="submit"
+                                                class="follow-btn following-btn">
+
+                                            Following
+
+                                        </button>
+
+                                    {% else %}
+
+                                        <button type="submit"
+                                                class="follow-btn">
+
+                                            + Follow
+
+                                        </button>
+
+                                    {% endif %}
+
+                                </form>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- POST CONTENT -->
+
+                <div class="post-content">
+
+                    {{ post.content }}
+
+                </div>
+
+
+                <!-- OWNER ACTIONS -->
+
+                {% if user.is_authenticated and post.user == user %}
+
+                    <div class="owner-actions">
+
+                        <a href="{% url 'edit_post' post.id %}"
+                           class="edit-post-btn">
+
+                            ✏️ Edit
+
+                        </a>
+
+
+                        <form method="POST"
+                              action="{% url 'delete_post' post.id %}"
+                              class="delete-form">
+
+                            {% csrf_token %}
+
+                            <button type="submit"
+                                    class="delete-post-btn"
+                                    onclick="return confirm('Are you sure you want to delete this post?');">
+
+                                🗑️ Delete
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- POST ACTIONS -->
+
+                <div class="post-actions">
+
+
+                    <!-- LIKE -->
+
+                    {% if user.is_authenticated %}
+
+                        <form method="POST"
+                              action="{% url 'like_post' post.id %}"
+                              class="like-form">
+
+                            {% csrf_token %}
+
+                            <button type="submit"
+                                    class="action-btn">
+
+                                ❤️ {{ post.likes.count }} Like
+
+                            </button>
+
+                        </form>
+
+                    {% else %}
+
+                        <a href="{% url 'login' %}"
+                           class="action-btn">
+
+                            ❤️ Login to Like
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- COMMENT COUNT -->
+
+                    <button class="action-btn"
+                            type="button">
+
+                        💬 {{ post.comments.count }} Comment
+
+                    </button>
+
+
+                    <!-- SHARE -->
+
+                    <button class="action-btn"
+                            type="button">
+
+                        ↗️ Share
+
+                    </button>
+
+
+                </div>
+
+
+                <!-- COMMENTS -->
+
+                <div class="comments-section">
+
+
+                    {% if user.is_authenticated %}
+
+                        <form method="POST"
+                              action="{% url 'add_comment' post.id %}"
+                              class="comment-form">
+
+                            {% csrf_token %}
+
+                            <input type="text"
+                                   name="text"
+                                   placeholder="Write a comment..."
+                                   required>
+
+                            <button type="submit">
+
+                                Comment
+
+                            </button>
+
+                        </form>
+
+                    {% else %}
+
+                        <p class="login-comment">
+
+                            <a href="{% url 'login' %}">
+                                Login
+                            </a>
+
+                            to write a comment.
+
+                        </p>
+
+                    {% endif %}
+
+
+                    <!-- EXISTING COMMENTS -->
+
+                    {% for comment in post.comments.all %}
+
+                        <div class="comment">
+
+                            <div class="comment-avatar">
+                                👤
+                            </div>
+
+                            <div class="comment-content">
+
+                                <strong>
+                                    {{ comment.user.username }}
+                                </strong>
+
+                                <p>
+                                    {{ comment.text }}
+                                </p>
+
+                                <small>
+                                    {{ comment.created_at }}
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    {% empty %}
+
+                        <p class="no-comments">
+
+                            No comments yet.
+                            Be the first to comment!
+
+                        </p>
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            </article>
+
+
+        {% empty %}
+
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📝
+                </div>
+
+                <h3>
+                    No posts yet
+                </h3>
+
+                <p>
+                    Be the first one to share something!
+                </p>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+
+</body>
+
+</html>

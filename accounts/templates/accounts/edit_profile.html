@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | SocialConnect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #26334d;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3a4b70;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+
+        /* =========================
+           EDIT CARD
+        ========================= */
+
+        .edit-card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .edit-card h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #687386;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .message {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #f8d7da;
+            color: #842029;
+            font-size: 14px;
+            text-align: center;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #30394a;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dfe4eb;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 22px;
+            padding: 12px 22px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .save-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #5568d9;
+        }
+
+        .cancel-btn {
+            background: #f1f3f6;
+            color: #4b5565;
+        }
+
+        .cancel-btn:hover {
+            background: #e5e9ef;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 30px;
+            }
+
+            .edit-card {
+                padding: 25px 18px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'profile' %}"
+               class="nav-btn">
+
+                Profile
+
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="nav-btn logout-btn">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+        <section class="edit-card">
+
+            <h1>
+                Edit Profile ✏️
+            </h1>
+
+            <p class="subtitle">
+                Update your username and email address.
+            </p>
+
+
+            <!-- =========================
+                 MESSAGES
+            ========================= -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <!-- =========================
+                 FORM
+            ========================= -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value="{{ user.username }}"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ user.email }}"
+                        placeholder="Enter email address"
+                    >
+
+                </div>
+
+
+                <div class="button-group">
+
+                    <a href="{% url 'profile' %}"
+                       class="btn cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="btn save-btn">
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+
+</body>
+
+</html>

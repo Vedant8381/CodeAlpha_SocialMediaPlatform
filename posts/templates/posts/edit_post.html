@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Post - SocialConnect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #667eea;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #5568d9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 50px auto;
+        }
+
+        .edit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .edit-card h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .edit-card p {
+            color: #687386;
+            margin-bottom: 22px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            border: 1px solid #dfe4eb;
+            border-radius: 12px;
+            padding: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #667eea;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+            text-decoration: none;
+            padding: 11px 20px;
+            border-radius: 22px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .save-btn {
+            background: #172033;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #26334d;
+        }
+
+        .cancel-btn {
+            background: #e9ecef;
+            color: #394150;
+        }
+
+        .cancel-btn:hover {
+            background: #dfe3e7;
+        }
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 30px;
+            }
+
+            .edit-card {
+                padding: 22px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+        <a href="{% url 'home' %}"
+           class="nav-btn">
+            ← Back to Home
+        </a>
+
+    </nav>
+
+
+    <main class="container">
+
+        <div class="edit-card">
+
+            <h1>
+                ✏️ Edit Your Post
+            </h1>
+
+            <p>
+                Update your post and save the changes.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <textarea
+                    name="content"
+                    placeholder="Write something..."
+                    required>{{ post.content }}</textarea>
+
+
+                <div class="buttons">
+
+                    <button type="submit"
+                            class="btn save-btn">
+
+                        💾 Save Changes
+
+                    </button>
+
+
+                    <a href="{% url 'home' %}"
+                       class="btn cancel-btn">
+
+                        ✖ Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications | SocialConnect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #26334d;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3a4b70;
+        }
+
+        .home-btn {
+            background: #667eea;
+        }
+
+        .home-btn:hover {
+            background: #5568d9;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        /* =========================
+           NOTIFICATION CARD
+        ========================= */
+
+        .notification-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .notification-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           NOTIFICATION ITEM
+        ========================= */
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px;
+            border: 1px solid #edf0f4;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: 0.2s ease;
+        }
+
+        .notification-item:hover {
+            background: #f8f9fb;
+        }
+
+        .notification-icon {
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
+            border-radius: 50%;
+            background: #e8edf5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-message {
+            font-size: 15px;
+            color: #30394a;
+            line-height: 1.5;
+        }
+
+        .notification-message strong {
+            color: #172033;
+        }
+
+        .notification-date {
+            display: block;
+            margin-top: 5px;
+            color: #8992a3;
+            font-size: 11px;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #737d8e;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+            color: #30394a;
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .notification-card {
+                padding: 22px 15px;
+            }
+
+            .notification-title {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}"
+               class="nav-btn home-btn">
+
+                Home
+
+            </a>
+
+            <a href="{% url 'profile' %}"
+               class="nav-btn">
+
+                Profile
+
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="nav-btn logout-btn">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+        <section class="notification-card">
+
+            <h1 class="notification-title">
+                🔔 Notifications
+            </h1>
+
+
+            {% for notification in notifications %}
+
+                <div class="notification-item">
+
+
+                    <!-- ICON -->
+
+                    <div class="notification-icon">
+
+                        {% if notification.notification_type == "follow" %}
+
+                            👥
+
+                        {% elif notification.notification_type == "like" %}
+
+                            ❤️
+
+                        {% elif notification.notification_type == "comment" %}
+
+                            💬
+
+                        {% else %}
+
+                            🔔
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="notification-content">
+
+                        <div class="notification-message">
+
+                            <strong>
+                                {{ notification.sender.username }}
+                            </strong>
+
+                            {{ notification.message|cut:notification.sender.username }}
+
+                        </div>
+
+                        <small class="notification-date">
+                            {{ notification.created_at }}
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            {% empty %}
+
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔔
+                    </div>
+
+                    <h3>
+                        No notifications
+                    </h3>
+
+                    <p>
+                        You're all caught up!
+                    </p>
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Followers | SocialConnect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #26334d;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3a4b70;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .list-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .list-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           USER
+        ========================= */
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #edf0f4;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #e8edf5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .username {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .email {
+            font-size: 12px;
+            color: #8992a3;
+            margin-top: 3px;
+        }
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+            text-align: center;
+            padding: 35px 20px;
+            color: #737d8e;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .list-card {
+                padding: 22px 15px;
+            }
+
+            .list-title {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'profile' %}"
+               class="nav-btn">
+
+                Profile
+
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="nav-btn logout-btn">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+        <section class="list-card">
+
+            <h1 class="list-title">
+                👥 Followers
+            </h1>
+
+
+            {% for follower in followers %}
+
+                <div class="user-item">
+
+                    <div class="user-info">
+
+                        <div class="avatar">
+                            👤
+                        </div>
+
+                        <div>
+
+                            <div class="username">
+                                {{ follower.username }}
+                            </div>
+
+                            <div class="email">
+
+                                {% if follower.email %}
+                                    {{ follower.email }}
+                                {% else %}
+                                    No email added
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        👥
+                    </div>
+
+                    <h3>
+                        No followers yet
+                    </h3>
+
+                    <p>
+                        People who follow you will appear here.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+</body>
+
+</html>

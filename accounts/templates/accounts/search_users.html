@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Search Users | SocialConnect</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #26334d;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3a4b70;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+
+        /* =========================
+           SEARCH CARD
+        ========================= */
+
+        .search-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .search-card h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: 1px solid #dfe4eb;
+            border-radius: 25px;
+            padding: 12px 16px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            border: none;
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .search-btn:hover {
+            background: #5568d9;
+        }
+
+
+        /* =========================
+           RESULTS
+        ========================= */
+
+        .results-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .results-title {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #edf0f4;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #e8edf5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+        }
+
+        .username {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .email {
+            color: #8992a3;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .profile-btn {
+            text-decoration: none;
+            background: #172033;
+            color: white;
+            padding: 9px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .profile-btn:hover {
+            background: #26334d;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            text-align: center;
+            padding: 30px 15px;
+            color: #737d8e;
+        }
+
+        .empty-icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                padding: 8px 11px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .search-card {
+                padding: 22px 15px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+            }
+
+            .results-card {
+                padding: 20px 15px;
+            }
+
+            .user-item {
+                align-items: flex-start;
+            }
+
+            .profile-btn {
+                white-space: nowrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}"
+               class="nav-btn">
+
+                Home
+
+            </a>
+
+            <a href="{% url 'profile' %}"
+               class="nav-btn">
+
+                Profile
+
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="nav-btn logout-btn">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- =========================
+             SEARCH
+        ========================= -->
+
+        <section class="search-card">
+
+            <h1>
+                🔎 Search Users
+            </h1>
+
+            <form method="GET"
+                  action="{% url 'search_users' %}"
+                  class="search-form">
+
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Search by username..."
+                    class="search-input"
+                    required
+                >
+
+                <button type="submit"
+                        class="search-btn">
+
+                    Search
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             RESULTS
+        ========================= -->
+
+        {% if query %}
+
+            <section class="results-card">
+
+                <h2 class="results-title">
+                    Search Results for "{{ query }}"
+                </h2>
+
+
+                {% for search_user in users %}
+
+                    <div class="user-item">
+
+                        <div class="user-info">
+
+                            <div class="avatar">
+                                👤
+                            </div>
+
+                            <div>
+
+                                <div class="username">
+                                    {{ search_user.username }}
+                                </div>
+
+                                <div class="email">
+
+                                    {% if search_user.email %}
+
+                                        {{ search_user.email }}
+
+                                    {% else %}
+
+                                        No email added
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <a href="{% url 'user_profile' search_user.id %}"
+                           class="profile-btn">
+
+                            View Profile
+
+                        </a>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            😕
+                        </div>
+
+                        <h3>
+                            No users found
+                        </h3>
+
+                        <p>
+                            Try searching with a different username.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </section>
+
+        {% endif %}
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+
+</body>
+
+</html>

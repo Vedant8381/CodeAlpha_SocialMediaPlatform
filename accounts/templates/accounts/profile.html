@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ user.username }} | Profile</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #172033;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            background: #26334d;
+            padding: 9px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #3a4b70;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 40px auto;
+        }
+
+
+        /* =========================
+           PROFILE CARD
+        ========================= */
+
+        .profile-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #e8edf5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+        }
+
+        .profile-card h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .email {
+            color: #687386;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+
+        /* =========================
+           EDIT PROFILE BUTTON
+        ========================= */
+
+        .edit-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #667eea;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 22px;
+            font-size: 14px;
+            margin-bottom: 25px;
+            transition: 0.2s ease;
+        }
+
+        .edit-btn:hover {
+            background: #5568d9;
+        }
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            border-top: 1px solid #edf0f4;
+            padding-top: 22px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 22px;
+            font-weight: bold;
+            color: #172033;
+            transition: 0.2s ease;
+        }
+
+        .stat-label {
+            display: block;
+            margin-top: 5px;
+            font-size: 13px;
+            color: #8992a3;
+            transition: 0.2s ease;
+        }
+
+
+        /* =========================
+           CLICKABLE STATS
+        ========================= */
+
+        .stat-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border-radius: 10px;
+            padding: 4px 8px;
+            transition: 0.2s ease;
+        }
+
+        .stat-link:hover {
+            background: #f1f3f6;
+        }
+
+        .stat-link:hover .stat-number {
+            color: #667eea;
+        }
+
+        .stat-link:hover .stat-label {
+            color: #667eea;
+        }
+
+
+        /* =========================
+           POSTS
+        ========================= */
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .post-date {
+            color: #8992a3;
+            font-size: 12px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .post-content {
+            color: #3d4656;
+            font-size: 16px;
+            line-height: 1.7;
+            word-wrap: break-word;
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty {
+            background: white;
+            padding: 45px 25px;
+            text-align: center;
+            border-radius: 16px;
+            color: #737d8e;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+            color: #30394a;
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #8992a3;
+            font-size: 13px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .profile-card {
+                padding: 28px 18px;
+            }
+
+            .stats {
+                gap: 15px;
+            }
+
+            .stat {
+                min-width: 65px;
+            }
+
+            .post-card {
+                padding: 18px;
+            }
+
+            .edit-btn {
+                margin-bottom: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🚀 SocialConnect
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}"
+               class="nav-btn">
+
+                Home
+
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="nav-btn logout-btn">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- =========================
+             PROFILE
+        ========================= -->
+
+        <section class="profile-card">
+
+            <div class="profile-avatar">
+                👤
+            </div>
+
+
+            <h1>
+                {{ user.username }}
+            </h1>
+
+
+            <p class="email">
+
+                {% if user.email %}
+
+                    {{ user.email }}
+
+                {% else %}
+
+                    No email added
+
+                {% endif %}
+
+            </p>
+
+
+            <!-- EDIT PROFILE -->
+
+            <a href="{% url 'edit_profile' %}"
+               class="edit-btn">
+
+                ✏️ Edit Profile
+
+            </a>
+
+
+            <!-- =========================
+                 STATS
+            ========================= -->
+
+            <div class="stats">
+
+
+                <!-- POSTS -->
+
+                <div class="stat">
+
+                    <span class="stat-number">
+                        {{ user_posts.count }}
+                    </span>
+
+                    <span class="stat-label">
+                        Posts
+                    </span>
+
+                </div>
+
+
+                <!-- FOLLOWERS -->
+
+                <a href="{% url 'followers' %}"
+                   class="stat-link">
+
+                    <div class="stat">
+
+                        <span class="stat-number">
+                            {{ followers_count }}
+                        </span>
+
+                        <span class="stat-label">
+                            Followers
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <!-- FOLLOWING -->
+
+                <a href="{% url 'following' %}"
+                   class="stat-link">
+
+                    <div class="stat">
+
+                        <span class="stat-number">
+                            {{ following_count }}
+                        </span>
+
+                        <span class="stat-label">
+                            Following
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <!-- ACTIVITIES -->
+
+                <div class="stat">
+
+                    <span class="stat-number">
+                        {{ total_activities }}
+                    </span>
+
+                    <span class="stat-label">
+                        Activities
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             USER POSTS
+        ========================= -->
+
+        <h2 class="section-title">
+            My Posts 📝
+        </h2>
+
+
+        {% for post in user_posts %}
+
+            <article class="post-card">
+
+                <span class="post-date">
+                    Posted on {{ post.created_at }}
+                </span>
+
+                <div class="post-content">
+                    {{ post.content }}
+                </div>
+
+            </article>
+
+
+        {% empty %}
+
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📝
+                </div>
+
+                <h3>
+                    No posts yet
+                </h3>
+
+                <p>
+                    You haven't created any posts yet.
+                </p>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        © 2026 SocialConnect • CodeAlpha Project
+
+    </footer>
+
+
+</body>
+
+</html>
